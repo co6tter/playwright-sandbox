@@ -1,4 +1,7 @@
+import path from "path";
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 /**
  * Read environment variables from file.
@@ -30,6 +33,11 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+
+    httpCredentials: {
+      username: process.env.BASIC_AUTH_USERNAME ?? "",
+      password: process.env.BASIC_AUTH_PASSWORD ?? "",
+    },
   },
 
   /* Configure projects for major browsers */
