@@ -58,6 +58,8 @@ class TokenBucketLimiter {
     this.tokens = Math.min(this.capacity, this.tokens + this.refillAmount);
 
     while (this.tokens > 0 && this.queue.length > 0) {
+      if (this.count() >= this.capacity) break;
+
       const r = this.queue.shift();
       if (!r) break;
       this.tokens--;
